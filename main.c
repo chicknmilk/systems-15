@@ -17,16 +17,11 @@ int main() {
 }
 
 char ** parse_args(char *line) {
-  char **args = calloc(4, sizeof(char *));
-
-  strsep(&line, " ");
-  int i = 0;
-  for (i = 0; i < 4; i++) {
-    args[i] = strsep(&line, " ");
-    if (args[i] == NULL) {
-      break;
-    }
+  char **args = calloc(5, sizeof(char *)); // at most 5 pointers to strings
+  args[0] = line; // first argument has same address as line
+  int i;
+  for (int i = 1; i < 5; i++) { // skips first
+    if (strsep(&line, " ") != NULL) args[i] = line;
   }
-
   return args;
 }
